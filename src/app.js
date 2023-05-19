@@ -1,6 +1,10 @@
-import React from 'react';
-import {createElement} from './utils.js';
-import './styles.css';
+import React, {useCallback} from 'react';
+import List from "./components/list";
+import Controls from "./components/controls";
+import Head from "./components/head";
+import PageLayout from "./components/page-layout";
+import { useState } from 'react';
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -10,34 +14,37 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const callbacks = {
+    onAddItem: useCallback((code) => {
+      store.addItem(code);
+    }, [store]),
+
+    onSelectItem: useCallback((code) => {
+      store.selectItem(code);
+    }, [store]),
+
+    onModalOpen: () => {
+      setModalOpen(true)
+      console.log(modalOpen)
+    },
+    // onAddItem: useCallback(() => {
+    //   store.addItem();
+    // }, [store])
+  }
 
   return (
-    <div className='App'>
-      <div className='App-head'>
-        <h1>Приложение на чистом JS</h1>
-      </div>
-      <div className='App-controls'>
-        <button onClick={() => store.addItem()}>Добавить</button>
-      </div>
-      <div className='App-center'>
-        <div className='List'>{
-          list.map(item =>
-            <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title}{item.desc}</div>
-                <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    <PageLayout>
+      <Head title='Приложение на чистом JS'/>
+      <Controls 
+        modalOpen 
+        onModalOpen={callbacks.onModalOpen}/>
+      <List 
+            list={list}
+            onAddItem={callbacks.onAddItem}/>
+            {modalOpen ? <Modal setModalOpen={setModalOpen}/> : null}
+    </PageLayout>
   );
 }
 

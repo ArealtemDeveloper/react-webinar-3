@@ -1,3 +1,5 @@
+import {generateCode} from "./utils";
+
 /**
  * Хранилище состояния приложения
  */
@@ -39,25 +41,12 @@ class Store {
   }
 
   /**
-   * Вспомогательная функция генерации уникального id
-   */
-  getId() {
-    let id = Math.round(Math.random()*1000)
-     this.state.list.map(item => {
-        if(item.code === id) {
-          id = Math.round(Math.random()*1000)
-        }
-    })
-    return id;
-  }
-
-  /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.getId(), title: 'Новая запись', desc: '', counter: 0}]
+      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
     })
   };
 
@@ -68,6 +57,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
+      // Новый список, в котором не будет удаляемой записи
       list: this.state.list.filter(item => item.code !== code)
     })
   };
@@ -81,15 +71,15 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
-          if(item.selected) {
-            item.counter += 1;
-          }
-          item.desc = ` | Выделяли ${item.counter} раз`
-        }else {
-          item.selected = false;
+          // Смена выделения и подсчёт
+          return {
+            ...item,
+            selected: !item.selected,
+            count: item.selected ? item.count : item.count + 1 || 1,
+          };
         }
-        return item;
+        // Сброс выделения если выделена
+        return item.selected ? {...item, selected: false} : item;
       })
     })
   }
