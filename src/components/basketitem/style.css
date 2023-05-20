@@ -1,0 +1,32 @@
+.BasketItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border: 1px dashed #ccc;
+}
+
+.BasketItem-desc {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.BasketItem-code {
+    margin-right: 20px;
+}
+
+.BasketItem-info {
+    display: flex;
+    align-items: center;
+}
+
+.BasketItem-info-price {
+    margin-right: 60px;
+}
+
+.BasketItem-info-count {
+    margin-right: 25px;
+}
+

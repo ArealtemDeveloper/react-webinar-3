@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import './style.css';
+import Basketitem from "../basketitem";
+import { getTotalPrice } from "../../utils";
 
-function Modal({modalOpen, setModalOpen}){
+function Modal({setModalOpen,basket, onDeleteItem}){
 
   return (
     <div className='Modal-wrapper'>
@@ -13,7 +15,17 @@ function Modal({modalOpen, setModalOpen}){
                 </button>
             </div>
             <div className='Modal-main'>
-                dsfsdfsdfsdfsdfsd
+                {basket.map(item => {
+                    return (
+                       <Basketitem key={item.code} basket={basket} onDeleteItem={onDeleteItem} item={item}/>
+                    )
+                })}
+                <div className='Modal-total'>
+                    <b>Итого</b>
+                    <b className='Modal-total-sum'>
+                        {basket.length > 0 ? getTotalPrice(basket.map(item => item.price * item.count)) : 0} ₽
+                    </b>
+                </div>
             </div>
         </div>
     </div>

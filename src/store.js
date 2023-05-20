@@ -40,14 +40,29 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
-  /**
-   * Добавление новой записи
+   /**
+   * Добавление товара в корзину
+   * 
    */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
+   addItemBasket(code) {
+    const item = this.state.list.find(item => item.code === code)
+    
+    if(!this.state.basket.find(item => item.code === code)) {
+      this.setState({
+        ...this.state,
+        basket: [...this.state.basket, {code: item.code, title: item.title, price: item.price, count: 1}]
+      })
+    } else {
+      this.setState({
+        ...this.state, 
+        basket: this.state.basket.map( item => {
+          if(item.code === code) {
+            return {code: item.code, title: item.title, price: item.price, count: item.count +1}
+          }
+          return item
+        })
+      })
+    }
   };
 
   /**
@@ -58,7 +73,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      basket: this.state.basket.filter(item => item.code !== code)
     })
   };
 

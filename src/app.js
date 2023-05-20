@@ -14,36 +14,46 @@ import Modal from './components/modal';
 function App({store}) {
 
   const list = store.getState().list;
+  const basket = store.getState().basket;
   const [modalOpen, setModalOpen] = useState(false);
 
   const callbacks = {
     onAddItem: useCallback((code) => {
-      store.addItem(code);
+      store.addItemBasket(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onDeleteItem: useCallback((code) => {
+      store.deleteItem(code);
     }, [store]),
 
     onModalOpen: () => {
       setModalOpen(true)
-      console.log(modalOpen)
     },
-    // onAddItem: useCallback(() => {
-    //   store.addItem();
-    // }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
+      <Head title='Магазин'/>
       <Controls 
         modalOpen 
+        basket={basket}
         onModalOpen={callbacks.onModalOpen}/>
       <List 
+            basket={basket}
             list={list}
-            onAddItem={callbacks.onAddItem}/>
-            {modalOpen ? <Modal setModalOpen={setModalOpen}/> : null}
+            onAddItem={callbacks.onAddItem}
+            />
+            {
+            modalOpen
+             ? 
+             <Modal 
+             setModalOpen={setModalOpen} 
+             basket={basket}
+             onDeleteItem={callbacks.onDeleteItem}
+             /> 
+             : 
+             null
+             }
     </PageLayout>
   );
 }
