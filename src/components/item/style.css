@@ -25,7 +25,9 @@
 
 .Item-price {
   width: 100px;
+  margin-right: 25px;
   align-self: center;
+  text-align: right;
 }
 
 .Item-actions {

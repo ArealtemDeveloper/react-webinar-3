@@ -7,7 +7,12 @@
 }
 
 .basket-desc {
-  margin-right: 20px;
+  text-align: right;
+  margin-right: 35px;
+}
+
+b {
+  margin-left: 10px;
 }
 
 .basket-btn {

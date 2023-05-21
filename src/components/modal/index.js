@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import './style.css';
-import Basketitem from "../basketitem";
+import Basketitem from "../basket-item";
+import PropTypes from 'prop-types';
 import { getTotalPrice } from "../../utils";
 
 function Modal({setModalOpen,basket, onDeleteItem}){
@@ -23,7 +24,7 @@ function Modal({setModalOpen,basket, onDeleteItem}){
                 <div className='Modal-total'>
                     <b>Итого</b>
                     <b className='Modal-total-sum'>
-                        {basket.length > 0 ? getTotalPrice(basket.map(item => item.price * item.count)) : 0} ₽
+                        {basket.length > 0 ? getTotalPrice(basket.map(item => item.price * item.count)).toLocaleString('ru') : 0} ₽
                     </b>
                 </div>
             </div>
@@ -31,5 +32,14 @@ function Modal({setModalOpen,basket, onDeleteItem}){
     </div>
   )
 }
+
+Modal.propTypes = {
+    basket: PropTypes.array.isRequired,
+    onDeleteItem: PropTypes.func,
+  };
+  
+  Modal.defaultProps = {
+    onDeleteItem: () => {},
+  }
 
 export default Modal;

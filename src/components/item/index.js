@@ -13,7 +13,7 @@ function Item(props){
       </div>
       <div className='Item-desc'>
         <div className='Item-price'>
-          <p>{props.item.price} ₽</p>
+          <p>{props.item.price.toLocaleString('ru')} ₽</p>
         </div>
         <div className='Item-actions'>
           <button onClick={() => props.onAddItem(props.item.code, props.item.title, props.item.price)}>
