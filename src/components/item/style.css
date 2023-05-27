@@ -38,3 +38,7 @@
   white-space: nowrap;
   font-size: 18px;
 }
+
+.Item-btn {
+  width: 75px;
+}

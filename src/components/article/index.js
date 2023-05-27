@@ -1,4 +1,4 @@
-import {memo, useEffect, useState} from 'react';
+import {memo, useContext, useEffect, useState} from 'react';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import {useParams} from "react-router-dom";
@@ -6,12 +6,15 @@ import 'style.css'
 import Head from "../head";
 import BasketTool from "../basket-tool";
 import {cn as bem} from "@bem-react/classname";
+import { LanguageContext } from "../../store/language";
+import translations from '../../store/language/translations.json'
 
 function Article() {
     
     const store = useStore();
     const { id } = useParams();
     const cn = bem('Article');
+    const ln = useContext(LanguageContext).ln
     const [article, setArticle] = useState({});
 
     async function fetchArticle() {
@@ -62,7 +65,7 @@ function Article() {
                     Цена: {article.price} ₽
                 </p>
             </div>
-            <button className={cn('btn')} onClick={callbacks.addToBasket}>Добавить</button>
+            <button className={cn('btn')} onClick={callbacks.addToBasket}>{translations[ln].addBtn}</button>
         </div>
     );
 }

@@ -5,6 +5,7 @@ import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Article from '../components/article';
+import LanguageProvider from '../store/language';
 
 /**
  * Приложение
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <>
+    <LanguageProvider>
     <BrowserRouter>
         <Routes>
           <Route path='/' element={<Main/>}/>
@@ -23,6 +25,7 @@ function App() {
         </Routes>
         {activeModal === 'basket' && <Basket/>}
     </BrowserRouter>
+    </LanguageProvider>
     </>
   );
 }
