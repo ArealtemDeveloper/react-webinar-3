@@ -30,7 +30,7 @@ function Main() {
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     //Cмена страницы
-    onChangeCurrentPage: useCallback((page) => store.actions.catalog.onChangePage(),[store])
+    onChangeCurrentPage: useCallback((page) => store.actions.catalog.onChangePage(page),[store])
   }
 
   const renders = {

@@ -12,17 +12,18 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
+      count: 0,
       currentPage: 1, // текущая страница
-      totalPages: 1, // всего страниц
     }
   }
 
   async load() {
-    const response = await fetch(`/api/v1/articles?limit=${limitPages}&skip=${(this.getState().currentPage - 1) * this.limit}&fields=items(_id, title, price),count`);
+    const response = await fetch(`/api/v1/articles?limit=${this.limit}&skip=${(this.getState().currentPage - 1) * this.limit}&fields=items(_id, title, price),count`);
     const json = await response.json();
     this.setState({
        ...this.getState(),
        list: json.result.items,
+       count: json.result.count,
        totalPages: Math.ceil(json.result.count/this.limit)
     }, 'Загружены товары из АПИ');
   }
@@ -32,6 +33,7 @@ class Catalog extends StoreModule {
       ...this.getState(),
       currentPage: page
     })
+    this.load();
   }
 }
 
