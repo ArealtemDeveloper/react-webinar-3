@@ -1,71 +1,37 @@
-import {memo, useContext, useEffect, useState} from 'react';
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
-import {useParams} from "react-router-dom";
-import 'style.css'
-import Head from "../head";
-import BasketTool from "../basket-tool";
+import {memo, useContext} from 'react';
+import "./style.css"
 import {cn as bem} from "@bem-react/classname";
 import { LanguageContext } from "../../store/language";
 import translations from '../../store/language/translations.json'
+import { replaceDots } from '../../utils';
 
-function Article() {
-    
-    const store = useStore();
-    const { id } = useParams();
+function Article({card, addToBasket}) {
+
     const cn = bem('Article');
     const ln = useContext(LanguageContext).ln
-    const [article, setArticle] = useState({});
-
-    async function fetchArticle() {
-        const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
-        const data = await response.json();
-        setArticle(data.result);
-    }
-
-    useEffect(() => {
-        fetchArticle();
-    }, [id]);
-
-    const basketState = useSelector(state => ({
-        amount: state.basket.amount,
-        sum: state.basket.sum,
-    }));
 
     const callbacks = {
-        addToBasket: () => {
-            store.actions.basket.addToBasket(article._id)
-        },
-        openModal: () => {
-            store.actions.modals.open('basket')
-        }
-    }
+		onAdd: (e) => addToBasket(card._id)
+	}
 
     return (
         <div className={cn()}>
-            <Head title={article.title}/>
-            <BasketTool 
-            onOpen={callbacks.openModal} 
-            amount={basketState.amount} 
-            sum={basketState.sum}
-            >
-            </BasketTool>
             <div className={cn('info')}>
-                <p>{article.description}</p>
+                <p>{card.description}</p>
                 <p className={cn('info-country')}>
-                    Страна производитель: <span>{article.madeIn?.title}</span>
+                    Страна производитель: <span>{card.madeIn}</span>
                 </p>
                 <p className={cn('info-category')}>
-                    Категория: <span>{article.category?.title}</span>
+                    Категория: <span>{card.category}</span>
                 </p>
                 <p className={cn('info-year')}>
-                    Год выпуска: <span>{article.edition}</span>
+                    Год выпуска: <span>{card.edition}</span>
                 </p>
                 <p className={cn('info-price')}>
-                    Цена: {article.price} ₽
+                    Цена: {replaceDots(card.price)} ₽
                 </p>
             </div>
-            <button className={cn('btn')} onClick={callbacks.addToBasket}>{translations[ln].addBtn}</button>
+            <button className={cn('btn')} onClick={callbacks.onAdd}>{translations[ln].addBtn}</button>
         </div>
     );
 }

@@ -11,7 +11,7 @@ function Head({title}){
 
   return (
     <div className='Head'>
-      <h1>{translations[ln].market}</h1>
+      <h1>{title}</h1>
       <div className='Head-language'>
         <LanguageSwitcher/>
       </div>
