@@ -42,7 +42,7 @@ function ArticleCard() {
             <NavLayout>
                 <Navbar/>
                 <BasketTool
-                onOpen={callbacks.openModal} 
+                onOpen={callbacks.openModalBasket} 
                 amount={select.amount} 
                 sum={select.sum}
                 />
