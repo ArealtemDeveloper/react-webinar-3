@@ -12,8 +12,7 @@ function LoginForm(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        props.signIn({login, password})
-        navigate('/profile')
+        props.signIn(login, password)
         setLogin('')
         setPassword('')
     }

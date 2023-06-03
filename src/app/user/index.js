@@ -14,6 +14,7 @@ function User() {
 
     const select = useSelector(state => ({
         user: state.user.user,
+        isAuth: state.user.isAuth,
     }));
 
     const callbacks = {
@@ -23,7 +24,7 @@ function User() {
 
     return (
         <PageLayout>
-            <Auth user={select.user} signIn={callbacks.signIn} signOut={callbacks.signOut}/>
+            <Auth user={select.user} signIn={callbacks.signIn} isAuth={select.isAuth} signOut={callbacks.signOut}/>
             <Head title={t('title')}/>
             <Navigation/>
             <UserProfile user={select.user}/>

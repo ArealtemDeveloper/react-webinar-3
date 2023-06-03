@@ -16,6 +16,7 @@ function Main() {
   const store = useStore();
   const select = useSelector(state => ({
     user: state.user.user,
+    isAuth: state.user.isAuth,
   }));
 
 	const callbacks = {
@@ -30,7 +31,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Auth user={select.user ? select.user : ''} singOut={callbacks.singOut}/>
+      <Auth user={select.user ? select.user : ''} isAuth={select.isAuth} singOut={callbacks.singOut}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

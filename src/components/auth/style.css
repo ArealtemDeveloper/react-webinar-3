@@ -1,7 +1,6 @@
 .Auth-header {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
 }
 
 .Auth-header-username {
@@ -9,4 +8,9 @@
     text-decoration: underline;
     font-size: 13px;
     font-weight: 400;
+}
+
+.Auth-header-logged {
+    display: flex;
+    align-items: center;
 }
