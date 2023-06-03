@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import 'style.css'
 import {cn as bem} from '@bem-react/classname';
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 
 function LoginBtn (props) {
@@ -14,5 +15,10 @@ function LoginBtn (props) {
         </div>
     )
 }
+
+LoginBtn.propTypes = {
+    title: PropTypes.string,
+}
+
 
 export default memo(LoginBtn)

@@ -2,6 +2,7 @@ import React, { memo, useState } from "react";
 import 'style.css'
 import { cn as bem, cn } from "@bem-react/classname";
 import { useNavigate } from "react-router-dom";
+import useTranslate from "../../hooks/use-translate";
 
 function LoginForm(props) {
 
@@ -9,6 +10,7 @@ function LoginForm(props) {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
+    const {t} = useTranslate()
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -22,7 +24,7 @@ function LoginForm(props) {
                 <h2>{props.title}</h2>
                 <form onSubmit={onSubmit}>
                     <div className={cn('login')}>
-                        <label htmlFor="name">Логин</label>
+                        <label htmlFor="name">{t('login')}</label>
                         <input
                             type="text"
                             name="name"
@@ -33,7 +35,7 @@ function LoginForm(props) {
                         />
                     </div>
                     <div className={cn('password')}>
-                        <label htmlFor="password">Пароль</label>
+                        <label htmlFor="password">{t('password')}</label>
                         <input
                             type="password"
                             name="password"
@@ -46,7 +48,7 @@ function LoginForm(props) {
                     <div className={cn('error-block')}>
                         <span className={cn('error-text')}>{props.error ? props.error : ''}</span>
                     </div>
-                    <button type="submit">Войти</button>
+                    <button type="submit">{t('signIn')}</button>
                 </form>
             </div>
 
