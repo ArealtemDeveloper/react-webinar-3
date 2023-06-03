@@ -7,6 +7,7 @@ import Auth from '../../components/auth';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import LoginForm from '../../components/login-form';
+import { Navigate } from 'react-router-dom';
 
 function User() {
     const store = useStore();
@@ -23,6 +24,10 @@ function User() {
         signOut: useCallback(() => store.actions.user.signOut(), [store]),
     }
 
+    if (select.isAuth) {
+        return <Navigate to='/' />   
+      }
+
     return (
         <PageLayout>
             <Auth 
@@ -36,6 +41,7 @@ function User() {
             title={'Вход'} 
             signIn={callbacks.signIn}
             error={select.error}
+            isAuth={select.isAuth}
             />
         </PageLayout>
     )

@@ -31,7 +31,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Auth user={select.user ? select.user : ''} isAuth={select.isAuth} singOut={callbacks.singOut}/>
+      <Auth user={select.user ? select.user : ''} isAuth={select.isAuth} singOut={callbacks.signOut}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

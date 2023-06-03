@@ -7,6 +7,7 @@ import Auth from '../../components/auth';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import UserProfile from '../../components/user-profile';
+import { Navigate } from 'react-router-dom';
 
 function User() {
     const store = useStore();
@@ -21,6 +22,10 @@ function User() {
         signIn: useCallback(() => store.actions.user.signIn(), [store]),
         signOut: useCallback(() => store.actions.user.signOut(), [store]),
     }
+
+    if (!select.isAuth) {
+        return <Navigate to='/login' />   
+      }
 
     return (
         <PageLayout>

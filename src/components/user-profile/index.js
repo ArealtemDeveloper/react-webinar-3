@@ -2,11 +2,14 @@ import React, { memo } from "react";
 import 'style.css'
 import { cn as bem } from "@bem-react/classname";
 import useTranslate from "../../hooks/use-translate";
+import { useNavigate } from "react-router-dom";
 
 function UserProfile(props) {
 
     const cn = bem('UserProfile')
     const {t} = useTranslate()
+    const navigate = useNavigate()
+
 
     return (
             <div className={cn()}>
