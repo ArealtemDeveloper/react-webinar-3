@@ -43,6 +43,9 @@ function LoginForm(props) {
                             required
                         />
                     </div>
+                    <div className={cn('error-block')}>
+                        <span className={cn('error-text')}>{props.error ? props.error : ''}</span>
+                    </div>
                     <button type="submit">Войти</button>
                 </form>
             </div>
