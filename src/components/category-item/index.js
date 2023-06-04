@@ -1,6 +1,9 @@
 import { memo } from "react";
 
 function CategoryItem({ item }) {
+
+    console.log(item)
+
     return (
         <>
             <option className='Select' key={item.value} value={item._id}>

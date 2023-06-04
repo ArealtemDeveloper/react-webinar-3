@@ -87,8 +87,8 @@ class CatalogState extends StoreModule {
       'search[query]': params.query
     };
 
-    if(params.category) {
-      apiParams['search[query]'] = params.category;
+    if (params.category !== '0' && params.category) {
+      apiParams['search[category]'] = params.category;
     }
     const categoriesResponse = await this.getCategories()
 
@@ -102,6 +102,7 @@ class CatalogState extends StoreModule {
       waiting: false
     }, 'Загружен список товаров из АПИ');
   }
+  
 
     async getCategories() {
       const response = await fetch('api/v1/categories?fields=_id,title,parent(_id)&limit=*');

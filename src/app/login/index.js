@@ -2,14 +2,14 @@ import React,  {memo, useCallback} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from '../../hooks/use-translate';
+import useInit from "../../hooks/use-init";
 import PageLayout from '../../components/page-layout';
 import Auth from '../../components/auth';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import LoginForm from '../../components/login-form';
-import { Navigate } from 'react-router-dom';
 
-function User() {
+function Login() {
     const store = useStore();
     const { t } = useTranslate();
 
@@ -23,10 +23,6 @@ function User() {
         signIn: useCallback((login, password) => store.actions.user.signIn(login, password), [store]),
         signOut: useCallback(() => store.actions.user.signOut(), [store]),
     }
-
-    if (select.isAuth) {
-        return <Navigate to='/' />   
-      }
 
     return (
         <PageLayout>
@@ -48,4 +44,4 @@ function User() {
 
 }
 
-export default memo(User);
+export default memo(Login);

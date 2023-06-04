@@ -20,18 +20,19 @@ function Main() {
   }));
 
 	const callbacks = {
-		singOut: useCallback(() => store.actions.user.signOut(), [store]),
+		signOut: useCallback(() => store.actions.user.signOut(), [store]),
 	};
 
   useInit(() => {
     store.actions.catalog.initParams();
+    store.actions.user.getUser();
   }, [], true);
 
   const {t} = useTranslate();
 
   return (
     <PageLayout>
-      <Auth user={select.user ? select.user : ''} isAuth={select.isAuth} singOut={callbacks.signOut}/>
+      <Auth user={select.user ? select.user : ''} isAuth={select.isAuth} signOut={callbacks.signOut}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

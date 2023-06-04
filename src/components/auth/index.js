@@ -30,7 +30,6 @@ function Auth({user, isAuth, signOut}) {
 
 Auth.propTypes = {
     isAuth: PropTypes.bool,
-    user: PropTypes.object,
 }
 Auth.defaltProps = {
     signOut: () => {}
