@@ -1,4 +1,4 @@
-import React,  {memo, useCallback} from 'react';
+import React,  {memo, useCallback, useEffect} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from '../../hooks/use-translate';
@@ -7,11 +7,12 @@ import Auth from '../../components/auth';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import UserProfile from '../../components/user-profile';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function User() {
     const store = useStore();
     const { t } = useTranslate();
+    const navigate = useNavigate();
 
     const select = useSelector(state => ({
         user: state.user.user,
@@ -23,9 +24,11 @@ function User() {
         signOut: useCallback(() => store.actions.user.signOut(), [store]),
     }
 
-    if (!select.isAuth) {
-        return <Navigate to='/login' />   
-      }
+    useEffect(() => {
+        if (select.isAuth !== true) {
+            navigate('/login')  
+          }
+    }, [])
 
     return (
         <PageLayout>
