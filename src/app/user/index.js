@@ -7,7 +7,8 @@ import Auth from '../../components/auth';
 import Head from '../../components/head';
 import Navigation from '../../containers/navigation';
 import UserProfile from '../../components/user-profile';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import useInit from '../../hooks/use-init';
 
 function User() {
     const store = useStore();
@@ -17,7 +18,12 @@ function User() {
     const select = useSelector(state => ({
         user: state.user.user,
         isAuth: state.user.isAuth,
+        profile: state.profile.profile,
     }));
+
+    useInit(() => {
+		store.actions.profile.loadProfile();
+	}, []);
 
     const callbacks = {
         signIn: useCallback(() => store.actions.user.signIn(), [store]),
@@ -37,7 +43,7 @@ function User() {
             <Auth user={select.user} signIn={callbacks.signIn} isAuth={select.isAuth} signOut={callbacks.signOut}/>
             <Head title={t('title')}/>
             <Navigation/>
-            <UserProfile user={select.user}/>
+            <UserProfile profile={select.profile}/>
         </PageLayout>
     )
 

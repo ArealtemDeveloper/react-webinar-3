@@ -46,22 +46,30 @@ class User extends StoreModule {
     }
 
     async getUser() {
+        const token = window.localStorage.getItem("token");
         try {
-            this.setState({ ...this.getState(), isAuth: false});
-            const response = await fetch(`/api/v1/users/self`, {
-                method: 'GET',
-                headers: {
-                    'X-Token': localStorage.getItem('token'),
-                    'Content-Type': 'application/json',
-                }
-            })
-            const json = await response.json()
-            this.setState({
-                ...this.getState(),
-                user: json.result,
-                isAuth: true,
-            })
+            if(token) {
 
+                this.setState({ ...this.getState(), isAuth: false});
+                const response = await fetch(`/api/v1/users/self`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Token': token,
+                        'Content-Type': 'application/json',
+                    }
+                })
+                const json = await response.json()
+                this.setState({
+                    ...this.getState(),
+                    user: json.result,
+                    isAuth: true,
+                })
+            }else {
+                this.setState({
+                    ...this.getState(),
+                    isAuth: false,
+                })
+            }
         } catch (error) {
             console.log(error)
         }
