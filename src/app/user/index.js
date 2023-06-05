@@ -24,11 +24,13 @@ function User() {
         signOut: useCallback(() => store.actions.user.signOut(), [store]),
     }
 
+
     useEffect(() => {
         if (select.isAuth !== true) {
             navigate('/login')  
           }
     }, [])
+
 
     return (
         <PageLayout>
