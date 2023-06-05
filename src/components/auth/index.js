@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React, {memo, useEffect} from "react";
 import LogoutBtn from "../logout-btn";
 import LoginBtn from "../login-btn";
 import { cn as bem } from "@bem-react/classname";
