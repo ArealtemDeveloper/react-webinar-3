@@ -7,6 +7,7 @@ import User from './user';
 import Login from './login';
 import useStore from '../hooks/use-store';
 import useSelector from '../hooks/use-selector';
+import ProfileRoute from '../containers/profile-route';
 
 /**
  * Приложение
@@ -27,7 +28,13 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/login'} element={<Login/>}/>
-        <Route path={'/profile'} element={<User/>}/>
+        <Route 
+        path={'/profile'} 
+        element= {
+          <ProfileRoute>
+            <User/>
+          </ProfileRoute>
+        }/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

@@ -5,7 +5,9 @@ class User extends StoreModule {
         return {
             user: null,
             isAuth: false,
+            isChecked: false,
             error: false,
+            waiting: false,
         }
     }
 
@@ -29,6 +31,7 @@ class User extends StoreModule {
                 this.setState({ 
                     ...this.getState(), 
                     isAuth: true, 
+                    isChecked: true,
                     user: json.result.user, 
                     error: null
                 });
@@ -36,6 +39,8 @@ class User extends StoreModule {
               } else {
                 this.setState({ 
                     ...this.getState(),
+                    isAuth: false, 
+                    isChecked: true,
                      error: `${response.status} ${response.statusText}`
                  })
               }
@@ -63,10 +68,12 @@ class User extends StoreModule {
                     ...this.getState(),
                     user: json.result,
                     isAuth: true,
+                    isChecked: true,
                 })
             }else {
                 this.setState({
                     ...this.getState(),
+                    isChecked: true,
                     isAuth: false,
                 })
             }
@@ -91,6 +98,7 @@ class User extends StoreModule {
                 ...this.getState(),
                 user: null,
                 isAuth: false,
+                isChecked: true,
             })
 
         } catch (error) {
