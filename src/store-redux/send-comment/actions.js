@@ -4,11 +4,12 @@ export default {
      * @param id
      * @return {Function}
      */
-    sendComment: (_id, _type, text) => {
+    sendComment: (text, id , type) => {
       return async (dispatch, getState, services) => {
         const token = localStorage.getItem('token');
   
         dispatch({type: 'comments/sendMessage-start'});
+        services.api.setHeader(services.config.tokenHeader, token);
   
         if(token) {
           try {
@@ -16,10 +17,10 @@ export default {
                 url: `api/v1/comments`,
                 method: 'post',
                 body: JSON.stringify({
-                  text,
+                  "text": text,
                   "parent": {
-                    _id,
-                    _type,
+                    "_id": id,
+                    "_type": type,
                   }
                 })
               }
