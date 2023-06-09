@@ -2,7 +2,6 @@ const initialState = {
     data: {},
     waiting: false,
     error: null,
-    active: '',
 }
 
 function reducer (state = initialState, action) {
@@ -17,9 +16,6 @@ function reducer (state = initialState, action) {
           
         case "comments/sendMessage-error":
             return { ...state, data: null, waiting: false, error: action.payload};
-
-        case "comments/sendMessage-changeActive":
-            return { ...state, active: action.payload, waiting: false, error: null};
 
         default: 
             return state;

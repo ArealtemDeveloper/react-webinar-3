@@ -38,4 +38,6 @@
     width: 100%;
     min-height: 76px;
     border: 1px solid #666666;
+    resize: none;
+    box-shadow: inset 0px 1px 4px rgba(102, 102, 102, 0.1);
 }

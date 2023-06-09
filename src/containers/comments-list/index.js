@@ -1,4 +1,4 @@
-import React, { useState, memo, useMemo, useCallback } from "react";
+import React, { memo, useMemo, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector as useSelectorRedux } from "react-redux";
@@ -19,6 +19,7 @@ function CommentsList() {
     const { id } = useParams();
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [ active , setActive ] = useState('6481e4a75ee970791d588ee6')
 
     const select = useSelector(state => ({
         exists: state.session.exists,
@@ -34,7 +35,7 @@ function CommentsList() {
     }))
 
     const callbacks = {
-        addComment: useCallback((text, id , type) => dispatch(commentSendActions.sendComment(text, id, type)),[])
+        addComment: useCallback((text, id , type) => dispatch(commentSendActions.sendComment(text, id, type)),[]),
     }
 
     useInit(() => {
@@ -50,7 +51,7 @@ function CommentsList() {
             author: item.author.profile.name,
             date: item.dateCreate
         }
-    )), [selectRedux.comments])
+    )), [selectRedux.comments, selectRedux.activeField])
 
     const renders = {
         item: useCallback( comment => (
@@ -58,6 +59,9 @@ function CommentsList() {
                 comment={comment}
                 exists={select.exists}
                 username={select.username}
+                active={active}
+                setActive={setActive}
+                addComment={callbacks.addComment}
             />
         ), [comments])
     }
@@ -68,10 +72,16 @@ function CommentsList() {
         <Spinner active={select.waiting}>
             <CommentsLayout length={comments.length}>
                 <CommentList commentsList={comments} toRender={renders.item}/>
-                <CommentAdd 
-                isAuth={select.exists}
-                addComment={callbacks.addComment}
-                />
+                {
+                    active === null
+                    ?
+                    <CommentAdd 
+                    isAuth={select.exists}
+                    addComment={callbacks.addComment}
+                    />
+                    :
+                    <></>
+                }
             </CommentsLayout>
         </Spinner>
     )

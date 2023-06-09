@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import dateFormat from "../../utils/date-format";
 import './style.css';
+import CommentAnswer from "../comment-answer";
 
-function CommentItem({comment, username, exists}) {
+function CommentItem({comment, active, exists, addComment, setActive}) {
   const cn = bem('CommentItem');
   const date = dateFormat(comment.date)
   const margin = Math.min(comment.level, 4) * 30 
+
+  const onChangeActive = () => {
+    setActive()
+    console.log(active)
+    console.log(comment.id)
+  }
 
   return (
     <div className={cn()} style={{marginLeft: `${margin}px`}}>
@@ -16,7 +23,19 @@ function CommentItem({comment, username, exists}) {
             <span className={cn('date')}>{date}</span>
         </div>
         <div className={cn('text')}>{comment.text}</div>
-        
+        <button className={cn('btn')} onClick={onChangeActive}>Ответить</button>
+        {
+          active == comment.id 
+          ?
+          <CommentAnswer
+          id={comment.id}
+          isAuth={exists}
+          addComment={addComment}
+          setActive={setActive}
+          />
+          :
+          <></>
+        }
     </div>
   );
 }

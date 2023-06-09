@@ -1,12 +1,13 @@
 import React, { useState, memo } from "react";
 import './style.css'
 import { cn as bem } from "@bem-react/classname";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 function CommentAdd({isAuth, addComment}) {
 
     const { id } = useParams()
     const cn = bem('CommentAdd');
+    const location = useLocation()
     const [text, setText] = useState('')
     
     const onChangeText = (e) => {
@@ -37,7 +38,9 @@ function CommentAdd({isAuth, addComment}) {
                 </>
                 :
                 <span className={cn('need')}>
-                    <Link to={'/login'} className={cn('need-link')}>Войдите</Link>
+                    <Link to={'/login'} className={cn('need-link')} state={{back: location.pathname}}>
+                        Войдите
+                    </Link>
                     <p>,чтобы иметь возможность комментировать</p>
                 </span>
             }

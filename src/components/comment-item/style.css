@@ -24,3 +24,17 @@
     line-height: 16px;
     font-weight: 400;
   }
+
+  .CommentItem-btn {
+    box-sizing: border-box;
+    padding: 0;
+    margin-top: 10px;
+    display: inline;
+    border: none;
+    background-color: white;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #0087E9;
+    cursor: pointer;
+  }

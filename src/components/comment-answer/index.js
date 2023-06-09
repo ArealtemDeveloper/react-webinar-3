@@ -1,25 +1,30 @@
 import React, { useState, memo } from "react";
 import './style.css'
 import { cn as bem } from "@bem-react/classname";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
-function CommentAnswer({isAuth, addComment}) {
+function CommentAnswer({isAuth, addComment, id, setActive}) {
 
-    const { id } = useParams()
     const cn = bem('CommentAnswer');
     const [text, setText] = useState('')
+    const location = useLocation()
     
     const onChangeText = (e) => {
         const value = e.target.value;
         setText(value)
     }
 
-    const onSubmit = () => {
-        const str = text.trim('')
-        str !== '' ? addComment(str, id , 'article') : '';
-        setText('')
+    const onCancel = () => {
+        setActive('')
     }
 
+    const onSubmit = () => {
+        const str = text.trim('')
+        if(str !== '') {
+            addComment(str, id, 'comment')
+        }
+        setText('')
+    }
 
     return (
         <div className={cn()}>
@@ -28,17 +33,21 @@ function CommentAnswer({isAuth, addComment}) {
                  ?
                 <>
                     <h2 className={cn('header')}>Новый ответ</h2>
-                    <textarea value={text} onChange={onChangeText}/>
-                    <button className={cn('btn')} onClick={onSubmit}>
-                        Отправить
-                    </button>
-                    <button className={cn('btn')} onClick={onSubmit}>
-                        Отмена
-                    </button>
+                    <textarea className={cn('area')} value={text} onChange={onChangeText}/>
+                    <div className={cn('buttons')}>
+                        <button className={cn('btn')} onClick={onSubmit}>
+                            Отправить
+                        </button>
+                        <button className={cn('btn')} onClick={onCancel}>
+                            Отмена
+                        </button>
+                    </div>
                 </>
                 :
                 <span className={cn('need')}>
-                    <Link to={'/login'} className={cn('need-link')}>Войдите</Link>
+                    <Link to={'/login'} className={cn('need-link')} state={{back: location.pathname}}>
+                        Войдите
+                    </Link>
                     <p>,чтобы иметь возможность комментировать</p>
                 </span>
             }
