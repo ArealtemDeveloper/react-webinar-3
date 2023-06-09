@@ -1,5 +1,5 @@
 .CommentList {
-    padding: 40px;
+    margin-top: 25px;
     display: flex;
     flex-direction: column;
     gap: 25px;

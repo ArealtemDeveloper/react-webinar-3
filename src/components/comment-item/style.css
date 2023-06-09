@@ -1,0 +1,26 @@
+.CommentItem{
+    margin-bottom: 30px;
+  }
+  
+  .CommentItem-author{
+    display: inline;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14px;
+  }
+  
+  .CommentItem-date{
+    display: inline;
+    margin-left: 10px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #666666;
+  }
+
+  .CommentItem-text {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+  }

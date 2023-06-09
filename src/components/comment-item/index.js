@@ -4,15 +4,16 @@ import {cn as bem} from '@bem-react/classname';
 import dateFormat from "../../utils/date-format";
 import './style.css';
 
-function CommentItem({comment}) {
+function CommentItem({comment, username, exists}) {
   const cn = bem('CommentItem');
-  const date = dateFormat(comment.dateCreate)
+  const date = dateFormat(comment.date)
+  const margin = Math.min(comment.level, 4) * 30 
 
   return (
-    <div className={cn()}>
-        <div className={cn(header)}>
-            <span className={cn('author')}>{comment.authorName}</span>
-            <span className={cn('date')}>{comment.date}</span>
+    <div className={cn()} style={{marginLeft: `${margin}px`}}>
+        <div className={cn('header')}>
+            <span className={cn('author')}>{comment.author}</span>
+            <span className={cn('date')}>{date}</span>
         </div>
         <div className={cn('text')}>{comment.text}</div>
         

@@ -9,6 +9,7 @@ export default function dateFormat ( date, locale = 'ru-RU' ) {
     const day = formattedDate.toLocaleString(locale, {
         day: '2-digit'
     })
+    
     const month = formattedDate.toLocaleString(locale, {
         month: 'long'
     })

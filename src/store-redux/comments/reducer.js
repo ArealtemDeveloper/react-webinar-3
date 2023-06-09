@@ -1,5 +1,5 @@
 const initialState = {
-    data: null,
+    data: [],
     waiting: false,
     error: null,
 }

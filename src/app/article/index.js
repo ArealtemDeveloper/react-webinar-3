@@ -24,7 +24,6 @@ function Article() {
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-    dispatch(commentsActions.loadComments(params.id));
   }, [params.id]);
   const select = useSelectorRedux(state => ({
     article: state.article.data,

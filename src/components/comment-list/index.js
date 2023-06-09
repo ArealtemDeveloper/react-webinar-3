@@ -4,16 +4,19 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import CommentItem from "../comment-item";
 
-function CommentList({commentsList}) {
+function CommentList({commentsList, toRender}) {
   const cn = bem('CommentList');
 
   return (
     <>
         <div className={cn()}>
-            <span className={cn('title')}>Коментарии ({commentsList.length})</span>
-            {commentsList.map ( comment => (
-                <CommentItem comment={comment} key={comment._id}/>
-            ))}
+            {
+            commentsList.map( comment => 
+                <div key={comment._id}>
+                    {toRender(comment)}
+                </div>
+              )
+            }
         </div>
     </>
   );
