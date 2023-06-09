@@ -11,6 +11,7 @@ import Spinner from "../../components/spinner";
 import CommentsLayout from "../../components/comments-layout";
 import CommentItem from "../../components/comment-item";
 import commentsActions from '../../store-redux/comments/actions';
+import CommentAdd from "../../components/comment-add";
 
 
 function CommentsList() {
@@ -27,12 +28,17 @@ function CommentsList() {
     const selectRedux = useSelectorRedux( state => ({
         comments: state.comments.data,
         commentsError: state.comments.error,
+        newComment: state.commentSend.data,
         commentsSendWaiting: state.commentSend.waiting,
     }))
 
+    const callbacks = {
+        addComment: useCallback((text, id , type) => dispatch(commentSendActions.sendComment(text, id, type)),[])
+    }
+
     useInit(() => {
         dispatch(commentsActions.loadComments(id))
-      }, [select.exists]);
+      }, [select.exists, selectRedux.newComment]);
 
     const comments = useMemo(() => 
     treeToList(listToTree(selectRedux.comments), (item, level) => (
@@ -61,6 +67,10 @@ function CommentsList() {
         <Spinner active={select.waiting}>
             <CommentsLayout length={comments.length}>
                 <CommentList commentsList={comments} toRender={renders.item}/>
+                <CommentAdd 
+                isAuth={select.exists}
+                addComment={callbacks.addComment}
+                />
             </CommentsLayout>
         </Spinner>
     )
