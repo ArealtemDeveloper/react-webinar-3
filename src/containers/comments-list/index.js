@@ -11,6 +11,7 @@ import Spinner from "../../components/spinner";
 import CommentsLayout from "../../components/comments-layout";
 import CommentItem from "../../components/comment-item";
 import commentsActions from '../../store-redux/comments/actions';
+import commentSendActions from '../../store-redux/send-comment/actions';
 import CommentAdd from "../../components/comment-add";
 
 

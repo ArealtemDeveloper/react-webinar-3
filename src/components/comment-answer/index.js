@@ -3,10 +3,10 @@ import './style.css'
 import { cn as bem } from "@bem-react/classname";
 import { Link, useParams } from "react-router-dom";
 
-function CommentAdd({isAuth, addComment}) {
+function CommentAnswer({isAuth, addComment}) {
 
     const { id } = useParams()
-    const cn = bem('CommentAdd');
+    const cn = bem('CommentAnswer');
     const [text, setText] = useState('')
     
     const onChangeText = (e) => {
@@ -16,9 +16,7 @@ function CommentAdd({isAuth, addComment}) {
 
     const onSubmit = () => {
         const str = text.trim('')
-        if(str !== '') {
-            addComment(str, id, 'article')
-        }
+        str !== '' ? addComment(str, id , 'article') : '';
         setText('')
     }
 
@@ -29,10 +27,13 @@ function CommentAdd({isAuth, addComment}) {
                 isAuth
                  ?
                 <>
-                    <h2 className={cn('header')}>Новый комментарий</h2>
-                    <textarea className={cn('area')} value={text} onChange={onChangeText}/>
+                    <h2 className={cn('header')}>Новый ответ</h2>
+                    <textarea value={text} onChange={onChangeText}/>
                     <button className={cn('btn')} onClick={onSubmit}>
                         Отправить
+                    </button>
+                    <button className={cn('btn')} onClick={onSubmit}>
+                        Отмена
                     </button>
                 </>
                 :
@@ -45,4 +46,4 @@ function CommentAdd({isAuth, addComment}) {
     )
 }
 
-export default memo(CommentAdd)
+export default memo(CommentAnswer)
