@@ -3,7 +3,7 @@ import './style.css'
 import { cn as bem } from "@bem-react/classname";
 import { Link, useLocation, useParams } from "react-router-dom";
 
-function CommentAnswer({isAuth, addComment, id, setActive}) {
+function CommentAnswer({isAuth, addComment, id, onCancel}) {
 
     const cn = bem('CommentAnswer');
     const [text, setText] = useState('')
@@ -14,16 +14,13 @@ function CommentAnswer({isAuth, addComment, id, setActive}) {
         setText(value)
     }
 
-    const onCancel = () => {
-        setActive('')
-    }
-
     const onSubmit = () => {
         const str = text.trim('')
         if(str !== '') {
             addComment(str, id, 'comment')
         }
         setText('')
+        onCancel()
     }
 
     return (

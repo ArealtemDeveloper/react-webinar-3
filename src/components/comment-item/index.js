@@ -5,16 +5,11 @@ import dateFormat from "../../utils/date-format";
 import './style.css';
 import CommentAnswer from "../comment-answer";
 
-function CommentItem({comment, active, exists, addComment, setActive}) {
+function CommentItem({comment, onCancel, active, exists, addComment, onAnswer}) {
   const cn = bem('CommentItem');
   const date = dateFormat(comment.date)
   const margin = Math.min(comment.level, 4) * 30 
-
-  const onChangeActive = () => {
-    setActive()
-    console.log(active)
-    console.log(comment.id)
-  }
+  const isAnswer = active === comment.id
 
   return (
     <div className={cn()} style={{marginLeft: `${margin}px`}}>
@@ -23,18 +18,16 @@ function CommentItem({comment, active, exists, addComment, setActive}) {
             <span className={cn('date')}>{date}</span>
         </div>
         <div className={cn('text')}>{comment.text}</div>
-        <button className={cn('btn')} onClick={onChangeActive}>Ответить</button>
+        <button className={cn('btn')} onClick={() => onAnswer(comment.id)}>Ответить</button>
         {
-          active == comment.id 
-          ?
-          <CommentAnswer
-          id={comment.id}
-          isAuth={exists}
-          addComment={addComment}
-          setActive={setActive}
-          />
-          :
-          <></>
+          isAnswer && (
+            <CommentAnswer
+            id={comment.id}
+            isAuth={exists}
+            addComment={addComment}
+            onCancel={onCancel}
+            />
+          )
         }
     </div>
   );
