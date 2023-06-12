@@ -2,6 +2,7 @@ import React, { useState, memo } from "react";
 import './style.css'
 import { cn as bem } from "@bem-react/classname";
 import { Link, useLocation, useParams } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 function CommentAdd({isAuth, addComment}) {
 
@@ -16,7 +17,7 @@ function CommentAdd({isAuth, addComment}) {
     }
 
     const onSubmit = () => {
-        const str = text.trim('')
+        const str = text.trim()
         if(str !== '') {
             addComment(str, id, 'article')
         }

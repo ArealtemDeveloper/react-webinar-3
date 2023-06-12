@@ -20,11 +20,12 @@ function CommentsList() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [ active , setActive ] = useState('')
+    
 
     const select = useSelector(state => ({
         exists: state.session.exists,
         waiting: state.session.waiting,
-        username: state.session.profile?.username
+        username: state.session.user.profile?.name
     }))
 
     const selectRedux = useSelectorRedux( state => ({
@@ -45,6 +46,9 @@ function CommentsList() {
           }, []),
     }
 
+    const lastIndex = selectRedux.comments.findLastIndex(comment => comment.parent._id === active);
+    const lastChild = lastIndex === -1 ? active : selectRedux.comments[lastIndex]?._id;
+
     useInit(() => {
         dispatch(commentsActions.loadComments(id))
       }, [select.exists, selectRedux.newComment]);
@@ -58,7 +62,8 @@ function CommentsList() {
             author: item.author.profile.name,
             date: item.dateCreate
         }
-    )), [selectRedux.comments, active])
+    )), [selectRedux.comments, active, lastChild])
+
 
     const renders = {
         item: useCallback( comment => (
@@ -70,6 +75,8 @@ function CommentsList() {
                 onAnswer={callbacks.onAnswer}
                 onCancel={callbacks.onCancel}
                 addComment={callbacks.addComment}
+                lastChild={lastChild}
+                lastIndex={lastIndex}
             />
         ), [comments])
     }

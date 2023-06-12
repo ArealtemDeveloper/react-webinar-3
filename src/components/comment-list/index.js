@@ -21,5 +21,15 @@ function CommentList({commentsList, toRender}) {
   );
 }
 
+CommentList.propTypes = {
+  commentsList: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  })).isRequired,
+  toRender: PropTypes.func,
+};
+
+CommentList.defaultProps = {
+  toRender: (item) => {},
+}
 
 export default memo(CommentList);
