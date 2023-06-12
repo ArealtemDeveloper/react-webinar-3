@@ -9,7 +9,8 @@ import CommentAnswer from "../comment-answer";
 function CommentItem({comment, onCancel, exists, addComment, onAnswer, username, lastChild}) {
   const cn = bem('CommentItem');
   const date = dateFormat(comment.date)
-  const margin = Math.min(comment.level, 6) * 30 
+  const margin = Math.min(comment.level, 4) * 30 
+  const marginAnswer = comment.level > 1 ? Math.min(lastChild) * 20 : 0
   const isAnswer = lastChild === comment.id
 
   return (
@@ -22,7 +23,7 @@ function CommentItem({comment, onCancel, exists, addComment, onAnswer, username,
         </div>
         <div className={cn('text')}>{comment.text}</div>
         <button className={cn('btn')} onClick={() => onAnswer(comment.id)}>Ответить</button>
-        <div style={{marginLeft: `${margin}px`}}>
+        <div style={{marginLeft: `${marginAnswer}px`}}>
           {
           isAnswer && (
             <CommentAnswer
