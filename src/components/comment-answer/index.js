@@ -31,7 +31,7 @@ function CommentAnswer({isAuth, addComment, id, onCancel, margin, lastChild}) {
     }
 
     return (
-        <div className={cn()} style={{marginLeft: `${margin}px`}} ref={ref}>
+        <div className={cn()} ref={ref}>
             {
                 isAuth
                  ?
