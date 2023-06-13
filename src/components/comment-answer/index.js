@@ -4,21 +4,20 @@ import { cn as bem } from "@bem-react/classname";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-function CommentAnswer({isAuth, addComment, id, onCancel, margin, lastChild}) {
+function CommentAnswer({isAuth, addComment, id, onCancel, place}) {
 
     const cn = bem('CommentAnswer');
     const [text, setText] = useState('')
     const location = useLocation()
-    const ref = useRef()
     
     const onChangeText = (e) => {
         const value = e.target.value;
         setText(value)
     }
 
-    useEffect(()=>{
-        ref.current.scrollIntoView({behavior: "smooth", block: "center"})
-      }, [lastChild])
+     useEffect(()=>{
+        console.log(place)
+      }, [])
 
 
     const onSubmit = () => {
@@ -31,7 +30,7 @@ function CommentAnswer({isAuth, addComment, id, onCancel, margin, lastChild}) {
     }
 
     return (
-        <div className={cn()} ref={ref}>
+        <div className={cn()}>
             {
                 isAuth
                  ?
